@@ -10,7 +10,7 @@ class SpendPoint(models.Model):
     isIncome = models.BooleanField()
 
     def __str__(self):
-        pass
+        return self.name
 
     class Meta:
         managed = True
@@ -31,7 +31,7 @@ class Task(models.Model):
     deadline = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        pass
+        return self.name
 
     class Meta:
         managed = True
