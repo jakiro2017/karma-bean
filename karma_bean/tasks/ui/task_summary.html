@@ -1,0 +1,51 @@
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+<div class="center-text">
+<h1>Spend Point Diary</h1>
+<p>From {{ start_date }} to {{ end_date }}</p>
+</div>
+
+
+<form method="get">
+    <div class="form-group">
+        <label for="start_date">Start Date</label>
+        <input type="date" id="start_date" name="start_date" class="form-control" value="{{ start_date|date:'Y-m-d' }}">
+    </div>
+    <div class="form-group">
+        <label for="end_date">End Date</label>
+        <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date|date:'Y-m-d' }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Created At</th>
+            <th>Point</th>
+            <th>Note</th>
+            <th>Deadline</th>
+            {% comment %} <th>Updated At</th> {% endcomment %}
+            <!-- Add more columns as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.code }}</td>
+            <td>{{ task.created_at }}</td>
+            {% comment %} <td>{{ task.updated_at }}</td> {% endcomment %}
+            <td>{{ task.base_point }}</td>
+            <td>{{ task.note }}</td>
+            <td>{{ task.deadline }}</td>
+            <!-- Add more fields as needed -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
