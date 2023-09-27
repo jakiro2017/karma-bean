@@ -1,4 +1,6 @@
-{% load bootstrap4 %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
@@ -36,13 +38,13 @@
     <tbody>
         {% for task in tasks %}
         <tr>
-            <td>{{ task.name }}</td>
-            <td>{{ task.code }}</td>
+            <td contenteditable="true">{{ task.name }}</td>
+            <td contenteditable="true">{{ task.code }}</td>
             <td>{{ task.created_at }}</td>
             {% comment %} <td>{{ task.updated_at }}</td> {% endcomment %}
-            <td>{{ task.base_point }}</td>
+            <td contenteditable="true">{{ task.base_point }}</td>
             <td>{{ task.note }}</td>
-            <td>{{ task.deadline }}</td>
+            <td contenteditable="true">{{ task.deadline }}</td>
             <!-- Add more fields as needed -->
         </tr>
         {% endfor %}
