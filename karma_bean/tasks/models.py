@@ -10,7 +10,7 @@ class SpendPoint(models.Model):
     isIncome = models.BooleanField()
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         managed = True

@@ -4,6 +4,8 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'push_task.js' %}"></script>
 <script src="{% static 'fill_this_month.js' %}"></script>
 <div class="center-text">
 <h1>Spend Point Diary</h1>
@@ -26,10 +28,12 @@
 <table class="table">
     <thead>
         <tr>
+            <th>id</th>
             <th>Name</th>
             <th>Code</th>
             <th>Created At</th>
-            <th>Point</th>
+            <th>Point In</th>
+            <th>Point Out</th>
             <th>Note</th>
             <th>Deadline</th>
             {% comment %} <th>Updated At</th> {% endcomment %}
@@ -39,11 +43,18 @@
     <tbody>
         {% for task in tasks %}
         <tr>
+            <td>{{ task.id }}</td>
             <td contenteditable="true">{{ task.name }}</td>
             <td contenteditable="true">{{ task.code }}</td>
             <td>{{ task.created_at }}</td>
             {% comment %} <td>{{ task.updated_at }}</td> {% endcomment %}
-            <td contenteditable="true">{{ task.base_point }}</td>
+            {% if task.code.isIncome %}
+                <td contenteditable="true">{{ task.base_point }}</td>
+                <td></td>
+            {% else %}
+                <td></td>
+                <td contenteditable="true">{{ task.base_point }}</td>
+            {% endif %}
             <td>{{ task.note }}</td>
             <td contenteditable="true">{{ task.deadline }}</td>
             <!-- Add more fields as needed -->
