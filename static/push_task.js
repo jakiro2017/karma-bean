@@ -27,3 +27,19 @@ $(document).ready(function () {
         });
     });
 });
+function updateTaskCode(taskId, newCode) {
+    $.ajax({
+        url: '/task-summary/update_task_code',  // URL of your Django view
+        type: 'POST',
+        data: {
+            'task_id': taskId,
+            'new_code': newCode,
+        },
+        success: function (data) {
+            // Handle success (optional)
+        },
+        error: function (data) {
+            // Handle error (optional)
+        }
+    });
+}

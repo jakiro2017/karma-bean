@@ -46,3 +46,23 @@ def update_task(request):
             return HttpResponseServerError(e.args[0])
 
     return JsonResponse({"status": "success"})
+
+
+@csrf_exempt
+def update_task_code(request):
+    if request.method == "POST":
+        task_id = request.POST.get("task_id")
+        new_code = request.POST.get("new_code")
+
+        # Get the Task and SpendPoint instances
+        task = Task.objects.get(id=task_id)
+        spendpoint = SpendPoint.objects.get(code=new_code)
+
+        # Update the Task instance
+        try:
+            task.code = spendpoint
+            task.save()
+        except Exception as e:
+            return HttpResponseServerError(e.args[0])
+
+        return JsonResponse({"status": "success"})

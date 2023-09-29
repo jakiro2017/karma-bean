@@ -46,10 +46,9 @@
             <td>{{ task.id }}</td>
             <td contenteditable="true">{{ task.name }}</td>
             <td>
-                <!-- Dropdown for task code -->
-                <select class="form-control  dropdown-content" id="taskCode{{ task.id }}">
-                    {% for sp in spendpoints %}
-                        <option value="{{ sp.code }}" {% if sp.code == task.code %} selected {% endif %}>{{ sp.code }}</option>
+                <select class="form-control dropdown-content" id="taskCode{{ task.id }}" onchange="updateTaskCode({{ task.id }}, this.value)">
+                    {% for spendpoint in spendpoints %}
+                    <option value="{{ spendpoint.code }}" {% if spendpoint.code == task.code.code %}selected{% endif %}>{{ spendpoint.code }}</option>
                     {% endfor %}
                 </select>
             </td>
