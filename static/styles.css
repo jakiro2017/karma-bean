@@ -23,3 +23,12 @@
     /* height: 100vh; */
     flex-direction: column;
 }
+
+.dropdown-content {
+    width: fit-content;
+}
+
+/* .table th:nth-child(1),
+.table td:nth-child(1) {
+    display: none;
+} */

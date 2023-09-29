@@ -45,7 +45,14 @@
         <tr>
             <td>{{ task.id }}</td>
             <td contenteditable="true">{{ task.name }}</td>
-            <td contenteditable="true">{{ task.code }}</td>
+            <td>
+                <!-- Dropdown for task code -->
+                <select class="form-control  dropdown-content" id="taskCode{{ task.id }}">
+                    {% for sp in spendpoints %}
+                        <option value="{{ sp.code }}" {% if sp.code == task.code %} selected {% endif %}>{{ sp.code }}</option>
+                    {% endfor %}
+                </select>
+            </td>
             <td>{{ task.created_at }}</td>
             {% comment %} <td>{{ task.updated_at }}</td> {% endcomment %}
             {% if task.code.isIncome %}
