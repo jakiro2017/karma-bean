@@ -26,7 +26,27 @@ $(document).ready(function () {
             }
         });
     });
+    $('.deadline').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    }).on('changeDate', function (e) {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+
+        // Format current time as HH:MM
+        var currentTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+
+        // Combine the selected date with the current time
+        var dateTime = e.format() + ' ' + currentTime;
+
+        // Fill the cell with the new date and time
+        $(this).text(dateTime);
+
+        console.log('Deadline changed: ' + dateTime);
+    });
 });
+
 function updateTaskCode(taskId, newCode) {
     $.ajax({
         url: '/task-summary/update_task_code',  // URL of your Django view

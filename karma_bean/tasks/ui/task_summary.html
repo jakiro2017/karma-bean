@@ -7,6 +7,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{% static 'push_task.js' %}"></script>
 <script src="{% static 'fill_this_month.js' %}"></script>
+<!-- Include Datepicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+
+<!-- Include Datepicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <div class="center-text">
 <h1>Spend Point Diary</h1>
 <p>From {{ start_date }} to {{ end_date }}</p>
@@ -31,7 +36,7 @@
             <th>id</th>
             <th>Name</th>
             <th>Code</th>
-            <th>Created At</th>
+            {% comment %} <th>Created At</th> {% endcomment %}
             <th>Point In</th>
             <th>Point Out</th>
             <th>Note</th>
@@ -52,7 +57,7 @@
                     {% endfor %}
                 </select>
             </td>
-            <td>{{ task.created_at }}</td>
+            {% comment %} <td>{{ task.created_at }}</td> {% endcomment %}
             {% comment %} <td>{{ task.updated_at }}</td> {% endcomment %}
             {% if task.code.isIncome %}
                 <td contenteditable="true">{{ task.base_point }}</td>
@@ -62,7 +67,8 @@
                 <td contenteditable="true">{{ task.base_point }}</td>
             {% endif %}
             <td>{{ task.note }}</td>
-            <td contenteditable="true">{{ task.deadline }}</td>
+            {% comment %} <td contenteditable="true">{{ task.deadline }}</td> {% endcomment %}
+            <td class="deadline" data-date-format="yyyy-mm-dd hh:ii" contenteditable="true">{{ task.deadline }}</td> 
             <!-- Add more fields as needed -->
         </tr>
         {% endfor %}
