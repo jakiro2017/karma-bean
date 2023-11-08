@@ -8,9 +8,9 @@ field_map = {
     "0": "id",
     "1": "name",
     "2": "code",
-    "3": "created_at",
+    # "3": "created_at",
+    "3": "base_point",
     "4": "base_point",
-    "5": "base_point",
     "6": "deadline",
 }
 
