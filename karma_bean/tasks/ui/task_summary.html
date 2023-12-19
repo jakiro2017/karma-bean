@@ -28,8 +28,10 @@
         <input type="date" id="end_date" name="end_date" class="form-control" value="{{ end_date|date:'Y-m-d' }}">
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
+    
 </form>
-
+<button class="btn btn-primary" id="toggleSections">Toggle Sections</button>
+<div id="viewOldData">
 <table class="table">
     <thead>
         <tr>
@@ -74,4 +76,44 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
+<div id="insertNewData" style="display: none;">
+    <table class="table">
+        <thead>
+            <!-- Your existing table header code goes here -->
+        </thead>
+        <tbody>
+        <tr>            
+            <th>Name</th>
+            <th>Code</th>
+            {% comment %} <th>Created At</th> {% endcomment %}
+            <th>Point need</th>            
+            <th>Note</th>
+            <th>Deadline</th>
+            {% comment %} <th>Updated At</th> {% endcomment %}
+            <!-- Add more columns as needed -->
+        </tr>
+            <!-- Add 10 blank rows for inserting new data -->
+            {% for _ in 'x'|rjust:10 %}
+            
+            <tr>
+                <td contenteditable="true"></td>                
+                <td>
+                    <select class="form-control dropdown-content">
+                        {% for spendpoint in spendpoints %}
+                        <option value="{{ spendpoint.code }}">{{ spendpoint.code }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td class="auto-fill-date" data-date-format="yyyy-mm-dd hh:ii" contenteditable="true"></td> 
+            
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
 {% endblock %}

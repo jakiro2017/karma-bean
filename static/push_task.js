@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    $("td[contenteditable=true]").on("contextmenu", function (e) {
+    $("#viewOldData td[contenteditable=true]").on("contextmenu", function (e) {
         e.preventDefault();
         $(this).attr("contenteditable", "true");
     });
 
-    $("td[contenteditable=true]").on("blur", function () {
+    $("#viewOldData td[contenteditable=true]").on("blur", function () {
         var newContent = $(this).text();
         var columnIndex = this.cellIndex;
         var id = $(this).siblings().first().text();
@@ -26,7 +26,7 @@ $(document).ready(function () {
             }
         });
     });
-    $('.deadline').datepicker({
+    $('#viewOldData .deadline').datepicker({
         format: 'yyyy-mm-dd',
         autoclose: true
     }).on('changeDate', function (e) {
@@ -45,6 +45,14 @@ $(document).ready(function () {
 
         console.log('Deadline changed: ' + dateTime);
     });
+    $("#insertNewData td[contenteditable=true]").on("click", function () {
+        // Auto-fill tomorrow's date in the 4th cell when clicked
+        var tomorrowDate = new Date();
+        tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+
+        var formattedDate = formatDate(tomorrowDate);
+        $(this).siblings(".auto-fill-date").text(formattedDate);
+    });
 });
 
 function updateTaskCode(taskId, newCode) {
@@ -62,4 +70,13 @@ function updateTaskCode(taskId, newCode) {
             // Handle error (optional)
         }
     });
+}
+function formatDate(date) {
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    var hours = ('0' + date.getHours()).slice(-2);
+    var minutes = ('0' + date.getMinutes()).slice(-2);
+
+    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
 }
