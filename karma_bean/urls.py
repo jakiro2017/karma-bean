@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-
+from rest_framework.routers import DefaultRouter
+from karma_bean.tasks.views import TaskViewSet
+router = DefaultRouter()
+router.register(r'tasks', TaskViewSet, basename='task')
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("task-summary/", include("karma_bean.tasks.ui.urls")),
+    path('api/', include(router.urls)),
 ]

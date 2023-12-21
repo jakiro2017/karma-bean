@@ -53,6 +53,53 @@ $(document).ready(function () {
         var formattedDate = formatDate(tomorrowDate);
         $(this).siblings(".auto-fill-date").text(formattedDate);
     });
+    $("#submitData").click(function () {
+        // Array to store the data
+        var postData = [];
+        console.log("Submit button clicked.");
+        // Iterate through each row in the table body
+        $("#insertNewData tbody tr").each(function () {
+            // Check if the 'Name' column is not blank
+            var name = $(this).find("td:eq(0)").text().trim();
+            if (name !== "") {
+                // If not blank, collect data from the row
+                var code = $(this).find("select").val();
+                var pointNeed = $(this).find("td:eq(2)").text().trim();
+                var note = $(this).find("td:eq(3)").text().trim();
+                var deadline = $(this).find("td:eq(4)").text().trim();
+
+                // Add the data to the array
+                postData.push({
+                    name: name,
+                    code: code,
+                    pointNeed: pointNeed,
+                    note: note,
+                    deadline: deadline
+                });
+            }
+        });
+
+        // Check if there is any data to post
+        if (postData.length > 0) {
+            // Send the data to your Django server using AJAX
+            $.ajax({
+                url: '/api/tasks/',  // Replace with your Django endpoint
+                type: 'POST',
+                data: JSON.stringify(postData),
+                contentType: 'application/json',
+                success: function (response) {
+                    console.log('Data posted successfully:', response);
+                    // Optionally, you can handle the success response here
+                },
+                error: function (error) {
+                    console.error('Error posting data:', error);
+                    // Optionally, you can handle the error here
+                }
+            });
+        } else {
+            console.log('No data to post.');
+        }
+    });
 });
 
 function updateTaskCode(taskId, newCode) {
