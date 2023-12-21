@@ -36,9 +36,9 @@
     <thead>
         <tr>
             <th>id</th>
-            <th>Name</th>
+            <th>Name</th>            
+            <th>State</th>
             <th>Code</th>
-            {% comment %} <th>Created At</th> {% endcomment %}
             <th>Point In</th>
             <th>Point Out</th>
             <th>Note</th>
@@ -52,6 +52,15 @@
         <tr>
             <td>{{ task.id }}</td>
             <td contenteditable="true">{{ task.name }}</td>
+            <td>  {% if TaskStatus %}
+                <select class="form-control dropdown-content" id="taskStatus{{ task.id }}" onchange="updateTaskStatus({{ task.id }}, this.value)">
+                    {% for status in TaskStatus.choices %}
+                        <option value="{{ status.0 }}" {% if status.0 == task.status %}selected{% endif %}>{{ status.1 }}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <p>TaskStatus not found for task {{ task.id }}</p>
+            {% endif %} </td>
             <td>
                 <select class="form-control dropdown-content" id="taskCode{{ task.id }}" onchange="updateTaskCode({{ task.id }}, this.value)">
                     {% for spendpoint in spendpoints %}
@@ -116,4 +125,5 @@
     </table>
     {% comment %} <button class="btn btn-primary" id="submitData">submitData new</button> {% endcomment %}
 </div>
+{% debug %}
 {% endblock %}

@@ -1,17 +1,18 @@
 from django.shortcuts import render
 from django.utils import timezone
-from ..models import Task, SpendPoint
+from ..models import Task, SpendPoint,TaskStatus
 from django.http import JsonResponse, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
 
 field_map = {
     "0": "id",
     "1": "name",
-    "2": "code",
-    # "3": "created_at",
-    "3": "base_point",
+    "2": "state",
+    "3": "code",
     "4": "base_point",
-    "6": "deadline",
+    # "4": "base_point",
+    "6": "note",
+    "7": "deadline",
 }
 
 
@@ -26,6 +27,7 @@ def task_summary(request):
         "start_date": start_date,
         "end_date": end_date,
         "spendpoints": spendpoints,
+        'TaskStatus': TaskStatus
     }
 
     return render(request, "karma_bean/tasks/ui/task_summary.html", context)

@@ -1,6 +1,10 @@
 from django.db import models
-
-
+from django.utils.translation import gettext_lazy as _
+class TaskStatus(models.TextChoices):
+    BOOKED = "BOOKED", _("BOOKED")
+    DOING = "DOING", _("DOING")
+    DONE = "DONE", _("DONE")
+    REVIEW = "REVIEW", _("REVIEW")
 # Create your models here.
 class SpendPoint(models.Model):
     name = models.CharField(max_length=500)
@@ -20,6 +24,13 @@ class SpendPoint(models.Model):
 
 class Task(models.Model):
     name = models.CharField(max_length=500)
+    status = models.CharField(
+        max_length=30,
+        choices=TaskStatus.choices,
+        default=TaskStatus.BOOKED,
+        blank=True,
+        null=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     code = models.ForeignKey(SpendPoint, on_delete=models.PROTECT)
