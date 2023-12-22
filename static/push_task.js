@@ -118,6 +118,22 @@ function updateTaskCode(taskId, newCode) {
         }
     });
 }
+function updateTaskStatus(taskId, newStatus) {
+    $.ajax({
+        url: '/task-summary/update_task_stat',  // URL of your Django view
+        type: 'POST',
+        data: {
+            'task_id': taskId,
+            'new_stat': newStatus,
+        },
+        success: function (data) {
+            // Handle success (optional)
+        },
+        error: function (data) {
+            // Handle error (optional)
+        }
+    });
+}
 function formatDate(date) {
     var year = date.getFullYear();
     var month = ('0' + (date.getMonth() + 1)).slice(-2);
