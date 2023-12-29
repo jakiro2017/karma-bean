@@ -2,9 +2,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 class TaskStatus(models.TextChoices):
     BOOKED = "BOOKED", _("BOOKED")
-    DOING = "DOING", _("DOING")
-    DONE = "DONE", _("DONE")
+    DOING = "DOING", _("DOING")    
     REVIEW = "REVIEW", _("REVIEW")
+    REJECT = "REJECT", _("REJECT")
+    DONE = "DONE", _("DONE")
 # Create your models here.
 class SpendPoint(models.Model):
     name = models.CharField(max_length=500)

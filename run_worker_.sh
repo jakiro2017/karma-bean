@@ -1,0 +1,1 @@
+celery -A karma_bean worker -l debug  -c 1

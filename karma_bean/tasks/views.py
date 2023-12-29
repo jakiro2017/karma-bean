@@ -7,6 +7,8 @@ from .models import Task
 from .ser import TaskSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.permissions import AllowAny
+from rest_framework import viewsets, views
+from karma_bean.tasks.tasks import update_task_status, send_notification
 @method_decorator(csrf_exempt, name='dispatch')
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
@@ -27,3 +29,11 @@ class TaskViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class TestCall(views.APIView):
+    permission_classes = (AllowAny,)
+    authentication_classes = []
+
+    
+    def get(self, request):
+        send_notification()
+        return Response({}, status=status.HTTP_200_OK)
