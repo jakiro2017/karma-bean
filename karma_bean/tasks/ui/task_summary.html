@@ -77,7 +77,7 @@
                 <td></td>
                 <td contenteditable="true">{{ task.base_point }}</td>
             {% endif %}
-            <td>{{ task.note }}</td>
+            <td contenteditable="true">{{ task.note }}</td>
             {% comment %} <td contenteditable="true">{{ task.deadline }}</td> {% endcomment %}
             <td class="deadline" data-date-format="yyyy-mm-dd hh:ii" contenteditable="true">{{ task.deadline |date:"Y-m-d H:i" }}</td> 
             <!-- Add more fields as needed -->
