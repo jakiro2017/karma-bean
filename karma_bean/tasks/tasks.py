@@ -35,7 +35,7 @@ def send_notification():
 
     # Send notification at 10pm the day before the deadline
     
-    ret = ""    
+    ret = "Notification deadline task: \n"    
     for task in tomorrow_deadline_tasks:
         # Assuming the notification is sent using some notification service
         # Replace the following line with your notification logic
@@ -72,7 +72,7 @@ def send_notification():
 
 def send_notification_logic(task):
     # Replace this with your actual notification logic
-    ret = f"Sending notification for task: {task.name}, Deadline: {task.deadline} \n"
+    ret = f"id {task.id} task: {task.name}, Deadline: {task.deadline} \n"
     print(ret)
     return ret
     # Your notification logic goes here
