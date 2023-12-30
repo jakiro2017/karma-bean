@@ -19,8 +19,14 @@ field_map = {
 def task_summary(request):
     start_date = request.GET.get("start_date", timezone.now())
     end_date = request.GET.get("end_date", timezone.now())
+    status = request.GET.get("status", None)
 
     tasks = Task.objects.filter(created_at__range=[start_date, end_date])
+
+    # Check if status is provided and not an empty string
+    if status and status.strip():
+        tasks = tasks.filter(status=status)
+
     spendpoints = SpendPoint.objects.all()
     context = {
         "tasks": tasks,
