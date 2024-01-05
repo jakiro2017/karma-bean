@@ -10,6 +10,7 @@ from celery.schedules import crontab
 from telethon.sync import TelegramClient, events
 from telethon.sessions import StringSession
 from telethon.tl.functions.messages import SendMessageRequest
+from django.db.models import Q
 @shared_task
 def update_task_status():
     now = timezone.now()
@@ -40,7 +41,16 @@ def send_notification():
         # Assuming the notification is sent using some notification service
         # Replace the following line with your notification logic
         ret +=send_notification_logic(task)
-    
+    ret += "Notification overdue task: \n" 
+    overdue_tasks = Task.objects.filter(
+    deadline__lt=timezone.now().date(),
+    ).filter(
+    ~Q(status__exact=TaskStatus.DONE) & ~Q(status__exact=TaskStatus.REVIEW)
+)
+    for task in overdue_tasks:
+        # Assuming the notification is sent using some notification service
+        # Replace the following line with your notification logic
+        ret +=send_notification_logic(task)
 
     try:
         loop = asyncio.get_event_loop()
@@ -86,6 +96,6 @@ app.conf.beat_schedule["change task review to reject"] = {
 
 app.conf.beat_schedule["noti deadline"] = {
     "task": "karma_bean.tasks.tasks.send_notification",
-    "schedule": crontab(hour=20, minute=0),
+    "schedule": crontab(hour=14, minute=36),
     # "schedule": crontab(minute="*/1"),
 }
